@@ -1,4 +1,4 @@
-package com.github.jotask.cs21120_Assignment;
+package cs21120.assignment.solution;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;

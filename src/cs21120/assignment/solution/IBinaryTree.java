@@ -1,4 +1,4 @@
-package com.github.jotask.cs21120_Assignment;
+package cs21120.assignment.solution;
 
 /**
  * The tree implementation to follow the following specification to allow it to be printed
