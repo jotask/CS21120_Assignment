@@ -1,4 +1,4 @@
-package cs21120.assignment.solution;
+package cs21120.assignment.provided;
 
 /**
  * The tree implementation to follow the following specification to allow it to be printed

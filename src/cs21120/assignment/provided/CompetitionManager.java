@@ -1,8 +1,9 @@
-package cs21120.assignment.solution;
+package cs21120.assignment.provided;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.Scanner;
 
 /**
@@ -12,6 +13,10 @@ import java.util.Scanner;
 public class CompetitionManager {
     /** The manager in use */
     IManager manager;
+
+    final int MAX_SCORE = 10;
+
+    Random random = new Random();
     
     /** Constructor for a CompetitionManager
      * 
@@ -34,45 +39,50 @@ public class CompetitionManager {
         manager.setPlayers(competitors);
         
         TreePrinter.print(manager.getCompetitionTree());
-        
+
         while(manager.hasNextMatch()) {
             Match match = manager.nextMatch();
             System.out.println("Player 1: " + match.getPlayer1());
             System.out.println("Player 2: " + match.getPlayer2());
+
             boolean notValidInput = true;
             boolean draw=true;
             int p1score=0, p2score=0;
+
             while (draw) {
-                while (notValidInput) {
-                    if (in.hasNextInt()) {
-                        notValidInput = false;
-                    } else if (in.hasNext()) {
-                        String str = in.next();
-                        System.out.println(str + " is not a valid input, please enter a number");
-                    }
-                }
-                p1score = in.nextInt();
-                notValidInput = true;
-                while (notValidInput) {
-                    if (in.hasNextInt()) {
-                        notValidInput = false;
-                    } else if (in.hasNext()) {
-                        String str = in.next();
-                        System.out.println(str + " is not a valid input, please enter a number");
-                    }
-                }
-                p2score = in.nextInt();
+//                while (notValidInput) {
+//                    if (in.hasNextInt()) {
+//                        notValidInput = false;
+//                    } else if (in.hasNext()) {
+//                        String str = in.next();
+//                        System.out.println(str + " is not a valid input, please enter a number");
+//                    }
+//                }
+//                p1score = in.nextInt();
+//                notValidInput = true;
+//                while (notValidInput) {
+//                    if (in.hasNextInt()) {
+//                        notValidInput = false;
+//                    } else if (in.hasNext()) {
+//                        String str = in.next();
+//                        System.out.println(str + " is not a valid input, please enter a number");
+//                    }
+//                p2score = in.nextInt();
+
+                p1score = random.nextInt(MAX_SCORE);
+                p2score = random.nextInt(MAX_SCORE);
+
                 if (p1score == p2score) {
-                    System.out.println("We need a result, not a draw!  Please have a rematch!");
+//                    System.out.println("We need a result, not a draw!  Please have a rematch!");
                 } else {
                     draw = false;
                 }
             }
             manager.setMatchScore(p1score, p2score);
         }
-   
+
         System.out.println("Winner is: " + manager.getPosition(0));
-        
+
         TreePrinter.print(manager.getCompetitionTree());
     }
     

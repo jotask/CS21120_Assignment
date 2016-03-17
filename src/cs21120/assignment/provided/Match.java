@@ -1,4 +1,4 @@
-package cs21120.assignment.solution;
+package cs21120.assignment.provided;
 
 
 /**
@@ -6,6 +6,7 @@ package cs21120.assignment.solution;
  * @author ncm
  */
 public class Match {
+
     String player1, player2;
     /**
      * Construct a match from the two players
