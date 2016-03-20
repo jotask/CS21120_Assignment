@@ -7,9 +7,6 @@ import java.util.*;
 
 public class BTSingleElimJov2 implements IManager {
 
-    enum DIR {LEFT, RIGHT}
-
-    Queue<Node> queue;
     Stack<Node> stack;
 
     private Node root;
@@ -24,8 +21,8 @@ public class BTSingleElimJov2 implements IManager {
         this.root.right = new Node(root);
 
         // Initialize the queue and stack
-        queue = new LinkedList<>();
         stack = new Stack<>();
+
     }
 
     @Override
@@ -38,9 +35,6 @@ public class BTSingleElimJov2 implements IManager {
         // to the right subtree recursively until the list of players is only one long, where the name of the player
         // (or team) is stored in the node and the recursion stops.
 
-        List<String> left;
-        List<String> right;
-
         if(players.size() == 1){
             root.left.setPlayer(players.get(0));
             return;
@@ -48,17 +42,17 @@ public class BTSingleElimJov2 implements IManager {
 
         int middle = players.size() / 2;
 
-        left = players.subList(0, middle);
-        right = players.subList(middle, players.size());
+        List<String> left = players.subList(0, middle);
+        List<String> right = players.subList(middle, players.size());
 
-        addToTree(DIR.LEFT, root.left, left);
-        addToTree(DIR.RIGHT, root.right, right);
+        addToTree(root.left, left);
+        addToTree(root.right, right);
 
         buildMatches();
 
     }
 
-    private void addToTree(DIR dir, Node n, List<String> players){
+    private void addToTree(Node n, List<String> players){
 
         if(players.size() == 1){
             n.setPlayer(players.get(0));
@@ -79,28 +73,31 @@ public class BTSingleElimJov2 implements IManager {
             n.left = new Node(n);
         }
 
-        addToTree(DIR.LEFT, n.left, left);
+        addToTree(n.left, left);
 
         if(n.right == null){
             n.right = new Node(n);
         }
 
-        addToTree(DIR.RIGHT, n.right, right);
+        addToTree(n.right, right);
 
     }
 
     private void buildMatches(){
 
-        queue.clear();
+        Queue<Node> queue = new LinkedList<>();
+
         stack.clear();
 
         queue.offer(root);
 
         while(!queue.isEmpty()){
+
             Node tmp = queue.poll();
 
             if(tmp.left != null)
                 queue.offer(tmp.left);
+
             if(tmp.right != null)
                 queue.offer(tmp.right);
 
@@ -152,15 +149,60 @@ public class BTSingleElimJov2 implements IManager {
     @Override
     public String getPosition(int n) {
 
-        // TODO
+        ArrayList<Node> nodes = new ArrayList<>();
 
-        return root.getPlayer();
+        help(root, nodes);
+
+        return nodes.get(n).getPlayer();
 
     }
+
+    private void help(Node n, ArrayList<Node> q){
+        Node left = n.left;
+        Node right = n.right;
+
+        if(left == null || right == null)
+            return;
+
+        if(left.getScore() < right.getScore()){
+            if(!contains(right, q))q.add(right);
+            if(!contains(left, q))q.add(left);
+        }else{
+            if(!contains(left, q))q.add(left);
+            if(!contains(right, q))q.add(right);
+        }
+
+        help(left, q);
+        help(right, q);
+
+    }
+
+    private boolean contains(Node n, ArrayList<Node> q){
+
+        for(Node no: q){
+            if(no.getPlayer().equals(n.getPlayer()))
+                return true;
+        }
+        return false;
+
+    }
+
 
     @Override
     public IBinaryTree getCompetitionTree() {
         return root;
+    }
+
+    public Stack<Node> getStack() {
+        return stack;
+    }
+
+    public Node getRoot() {
+        return root;
+    }
+
+    public MatchExtend getLastMatch() {
+        return lastMatch;
     }
 
     public static void main(String[] args) {

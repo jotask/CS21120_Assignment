@@ -19,8 +19,7 @@ public class Node implements IBinaryTree {
         this.parent = parent;
     }
 
-    public Node() {
-    }
+    public Node() { }
 
     @Override
     public IBinaryTree getLeft() {
