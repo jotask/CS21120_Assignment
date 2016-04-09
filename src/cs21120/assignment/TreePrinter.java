@@ -1,4 +1,4 @@
-package cs21120.assignment.provided;
+package cs21120.assignment;
 
 import java.util.ArrayList;
 import java.util.List;

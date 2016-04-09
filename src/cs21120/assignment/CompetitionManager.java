@@ -1,4 +1,4 @@
-package cs21120.assignment.provided;
+package cs21120.assignment;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -41,9 +41,10 @@ public class CompetitionManager {
         TreePrinter.print(manager.getCompetitionTree());
 
         while(manager.hasNextMatch()) {
+
             Match match = manager.nextMatch();
-            System.out.println("Player 1: " + match.getPlayer1());
-            System.out.println("Player 2: " + match.getPlayer2());
+//            System.out.println("Player 1: " + match.getPlayer1());
+//            System.out.println("Player 2: " + match.getPlayer2());
 
             boolean notValidInput = true;
             boolean draw=true;
@@ -67,6 +68,7 @@ public class CompetitionManager {
 //                        String str = in.next();
 //                        System.out.println(str + " is not a valid input, please enter a number");
 //                    }
+//                }
 //                p2score = in.nextInt();
 
                 p1score = random.nextInt(MAX_SCORE);
@@ -84,6 +86,7 @@ public class CompetitionManager {
         System.out.println("Winner is: " + manager.getPosition(0));
 
         TreePrinter.print(manager.getCompetitionTree());
+
     }
     
     
