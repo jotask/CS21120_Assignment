@@ -4,20 +4,17 @@ import java.io.FileNotFoundException;
 import java.util.*;
 
 /**
- * At the beginning it was a bit difficult to understand how implement this. I wrote a sample solution to know how
- * solve some problems. When I know how solve some implementation I wrote this assignment. Also, I wrote my own JUnit
- * test to test if everything works fine without any bug, and I resolve all the problems I had.
+ *
+ * To initialize the tree we call recursively the function with the list and the root node. On each call we split
+ * the list into two list, and re-call this function with the left node and the right node from the parent node, until
+ * the list only contains one unique element. If have one element we create a leaf node for the tree. When the tree is
+ * initialize the stack is build to know how many matches we have to do.
  *
  * I extended the match class to store the node that holds both teams, so it make more easy to get matches. With
  * this, this class have the logic for set the score and promote the winner to his parent.
  *
  * Each internal node on the tree represent a match with two adversaries. We have n-1 internal nodes on the tree
  * and n leaf nodes. For each match the winner is promoted to his parent.
- *
- * To initialize the tree we call recursively the function with the list and the root node. On each call we split
- * the list into two list, and re-call this function with the left node and the right node from the parent node, until
- * the list only contains one unique element. If have one element we create a leaf node for the tree. When the tree is
- * initialize the stack is build to know how many matches we have to do.
  *
  * To know if we have more matches to do, we only need to know if the stack is empty. If its empty we don't have
  * match to do.
@@ -29,6 +26,37 @@ import java.util.*;
  *      - Set match scores: O(1) because we have a references from the last match played.
  *      - Get position O(n) because we need to iterate over the tree for find this position.
  *      - Get competition tree: O(1) return the root of the tree.
+ *
+ *
+ *********************************************
+ ************** Self Evaluation **************
+ *********************************************
+ *
+ * Build the tree:
+ *      My code to build the tree is called recursively. I'm quite happy with the result of this algorithm.
+ *
+ * Build the matches (stack):
+ *      I'm happy with this algorithm too. It builds the stack nicely and have some check to possible errors.
+ *
+ * Has next Match, nextMatch, getCompetitionTree, and SetScores:
+ *      Nothing to comment on this parts. Those are simple methods. Nothing to be proud.
+ *
+ * GetPosition:
+ *      This was one of the most difficult methods for this assignment. And I'm not too much happy with
+ *      the end up result because every time you want to know a position of one player, you need to create
+ *      a queue and a new stack to build the position and iterate over the tree. This can be expensive
+ *      for massive trees with long depths. But I didn't find a better way to solve this problem.
+ *
+ * Overall:
+ *      This assignment was difficult to understand at the beginning how to achieve what we have asked
+ *      for this assignment. But I manage to end up with a final solution. First, I tried to complete this
+ *      assignment without any inheritance class. But was not very happy as it was developing the assignment.
+ *      So I delete everything and I decide to do this assignment with inheritance to make more sense to the
+ *      final result. I extend the class Match to hold more information because to me it makes sense for the
+ *      final implementation. I think my work is between 65 and 75% if it works fine. I made it some unit testing
+ *      to confirm it works, but I did the same for the first assignment for this module but when I used the JUnit
+ *      provided by the lecturer I have many errors in my code. So I'm no really confident about this assignment.
+ *      But it has passed my JUnit.
  *
  * @author Jose Vives Iznardo
  *
@@ -247,7 +275,7 @@ public class BTSingleElimJov2 implements IManager {
         if (n > competitionSize)
             return null;
 
-        // Temp stack and queue for hold data
+        // Temp stack and queue to hold data
         Stack<String> s = new Stack<>();
         Queue<Node> q = new LinkedList<>();
 
